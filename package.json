@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
-    "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
-    "ios-6": "node node_modules/react-native/local-cli/cli.js run-ios --simulator=\"iPhone 6s\"",
+    "ios": "node node_modules/react-native/local-cli/cli.js run-ios --simulator=\"iPhone 6\"",
+    "ios-6": "node node_modules/react-native/local-cli/cli.js run-ios --simulator=\"iPhone 6\"",
     "ios-x": "node node_modules/react-native/local-cli/cli.js run-ios --simulator=\"iPhone X\"",
     "build:android": "rm -rf ./android/build && cd android && ./gradlew assembleRelease"
   },
@@ -38,6 +38,7 @@
     "redux-saga": "1.0.2",
     "redux-thunk": "2.3.0",
     "reselect": "4.0.0",
+    "pure-component": "./libs/pure-component",
     "socket.io-client": "2.2.0",
     "socketio-wildcard": "2.0.0"
   },
