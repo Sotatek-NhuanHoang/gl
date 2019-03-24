@@ -1,60 +1,34 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { connect } from 'react-redux';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga'
 import { reducer as i18n } from 'react-native-redux-i18n';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { all } from 'redux-saga/effects'
+import { all } from 'redux-saga/effects';
+import {
+    createNavigationReducer,
+    createReactNavigationReduxMiddleware,
+    createReduxContainer
+} from 'react-navigation-redux-helpers';
+import Router from '../Router';
 
-import globalReducer from './global';
-import walletReducer from './wallet';
-import newWalletReducer from './newWallet';
-import importWalletReducer from './importWallet';
-import withdrawReducer from './withdraw';
-import settingReducer from './setting';
-import currencyReducer from './currency';
-import exchangeReducer from './exchange';
-import exchangeTransactionReducer from './exchangeTransaction';
-import tutorialReducer from './tutorial';
+
+// Reducers
+import globalReducer from './global/reducer';
+const navReducer = createNavigationReducer(Router);
 
 
 const reducers = combineReducers({
-    global: persistReducer({
-        key: 'global',
-        storage: storage,
-        whitelist: ['isLanguageSet', 'tag'],
-    }, globalReducer),
-    wallet: persistReducer({
-        key: 'wallet',
-        storage: storage,
-    }, walletReducer),
-    newWallet: newWalletReducer,
-    importWallet: importWalletReducer,
-    withdraw: withdrawReducer,
-    setting: persistReducer({
-        key: 'setting',
-        storage: storage,
-        whitelist: ['passcode', 'protectedByPasscode'],
-    }, settingReducer),
-    currency: persistReducer({
-        key: 'currency',
-        storage: storage,
-        whitelist: ['data'],
-    }, currencyReducer),
-    exchange: exchangeReducer,
-    exchangeTransaction: exchangeTransactionReducer,
-    tutorial: persistReducer({
-        key: 'tutorial',
-        storage: storage,
-    }, tutorialReducer),
-    i18n: persistReducer({
-        key: 'i18n',
-        storage: storage,
-    }, i18n),
+    global: globalReducer,
+    nav: navReducer,
 });
 
+const navMiddleware = createReactNavigationReduxMiddleware(
+    state => state.nav,
+  );
 const sagaMiddleware = createSagaMiddleware();
-const middleWares = [thunk, sagaMiddleware];
+const middleWares = [navMiddleware, thunk, sagaMiddleware];
 
 if (__DEV__) {
     const { logger } = require(`redux-logger`);
@@ -79,25 +53,31 @@ const store = createStore(
 
 
 // Saga
-import { newWalletSaga } from './newWallet';
-import { importWalletSaga } from './importWallet';
-import { exchangeSaga } from './exchange';
-import { walletSaga } from './wallet';
-import { withdrawSaga } from './withdraw';
+// import { newWalletSaga } from './newWallet';
+// import { importWalletSaga } from './importWallet';
+// import { exchangeSaga } from './exchange';
+// import { walletSaga } from './wallet';
+// import { withdrawSaga } from './withdraw';
 
 sagaMiddleware.run(function* () {
-    yield all([
-        newWalletSaga(),
-        importWalletSaga(),
-        exchangeSaga(),
-        walletSaga(),
-        withdrawSaga(),
-    ]);
+    // yield all([
+    //     newWalletSaga(),
+    //     importWalletSaga(),
+    //     exchangeSaga(),
+    //     walletSaga(),
+    //     withdrawSaga(),
+    // ]);
 });
 
 export const persistor = persistStore(store);
 
 export const dispatch = store.dispatch;
 export const getState = store.getState;
+
+export const RouterWithState = connect(
+    (state) => ({
+        state: state.nav,
+    })
+)(createReduxContainer(Router));
 
 export default store;

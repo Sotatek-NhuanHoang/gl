@@ -1,4 +1,4 @@
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 
 
 // LoginSignup
@@ -10,4 +10,4 @@ const AppNavigator = createStackNavigator({
 });
 
   
-export default createAppContainer(AppNavigator);
+export default AppNavigator;

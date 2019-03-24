@@ -11,7 +11,6 @@ import { fromJS } from 'immutable';
  * =====================================================
  */
 const defaultState = {
-    rooms: {},
 
 };
 
@@ -23,7 +22,7 @@ const defaultState = {
  * =====================================================
  */
 
-export const room_UPDATE_STATE = createAction('room_UPDATE_STATE');
+export const global_UPDATE_STATE = createAction('global_UPDATE_STATE');
 
 
 
@@ -35,7 +34,7 @@ export const room_UPDATE_STATE = createAction('room_UPDATE_STATE');
  */
 
 export const reducer = handleActions({
-    room_UPDATE_STATE: (state, { payload }) => {
+    global_UPDATE_STATE: (state, { payload }) => {
         return fromJS(state)
             .mergeDeep(payload)
             .toJS();
