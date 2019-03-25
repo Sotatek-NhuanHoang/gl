@@ -3,7 +3,9 @@ import { fromJS } from 'immutable';
 
 
 const defaultState = {
-
+    // Modal state
+    showModal: false,
+    modalContent: null,
 };
 
 
