@@ -23,6 +23,7 @@
     "apisauce": "1.0.2",
     "immutable": "4.0.0-rc.12",
     "lodash": "4.17.11",
+    "prop-types": "15.7.2",
     "pure-component": "./libs/pure-component",
     "react": "16.8.3",
     "react-native": "0.59.0",

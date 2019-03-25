@@ -4,6 +4,8 @@ import { View, Text } from 'react-native';
 
 import styles from './AppIntroScreen.style';
 
+import LocComp from '@gl/component/LocComp';
+
 
 export class AppIntroScreen extends PureComponent {
 
@@ -17,7 +19,7 @@ export class AppIntroScreen extends PureComponent {
         return (
             <View style={[styles.container, style]}>
                 <Text>
-                    AppIntroScreen
+                    <LocComp locKey="no_connection" />
                 </Text>
             </View>
         );

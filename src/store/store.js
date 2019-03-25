@@ -22,6 +22,7 @@ const navReducer = createNavigationReducer(Router);
 const reducers = combineReducers({
     global: globalReducer,
     nav: navReducer,
+    i18n: i18n,
 });
 
 const navMiddleware = createReactNavigationReduxMiddleware(
